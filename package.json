@@ -6,7 +6,7 @@
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc --p tsconfig.json",
+    "build": "tsc",
     "test": "jest"
   },
   "sideEffects": false,
@@ -33,6 +33,7 @@
     "@babel/preset-env": "^7.8.6",
     "@types/jest": "^25.1.2",
     "@types/jest-matcher-utils": "^25.1.0",
+    "@types/node": "^13.7.7",
     "babel": "^6.23.0",
     "babel-jest": "^25.1.0",
     "babel-preset-shopify": "^21.0.0",

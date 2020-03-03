@@ -5,7 +5,7 @@ export interface SimpleFunctionalComponent<P> {
   (props: P): VNode<any> | null;
 }
 
-export type ComponentType<P extends {}> = OriginalComponentType<P> | SimpleFunctionalComponent<P>;
+export type ComponentType<P extends {}> = OriginalComponentType<P>;
 
 export type PropsFor<T extends string | ComponentType<any>> = T extends string
   ? T extends keyof JSX.IntrinsicElements

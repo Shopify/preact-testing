@@ -2,10 +2,6 @@ import {h, render, ComponentChild} from 'preact';
 import {teardown, setupRerender} from 'preact/test-utils';
 import {TestWrapper} from '../TestWrapper';
 
-function Span({children}: {children?: ComponentChild}) {
-  return <span>{children}</span>;
-}
-
 describe('<TestWrapper />', () => {
   let scratch: HTMLElement;
   let rerender: () => void;
@@ -17,10 +13,15 @@ describe('<TestWrapper />', () => {
 
   afterEach(teardown);
 
+
+  function Message({children}: {children?: ComponentChild}) {
+    return <span>{children}</span>;
+  }
+
   it('renders the given children using the provided render method', () => {
     render(
       <TestWrapper render={(content) => <div>{content}</div>}>
-        <Span>nothing</Span>
+        <Message>nothing</Message>
       </TestWrapper>,
       scratch,
     );
@@ -36,7 +37,7 @@ describe('<TestWrapper />', () => {
         ref={(wrap) => (wrapper = wrap)}
         render={(content) => content}
       >
-        <Span>nothing</Span>
+        <Message>nothing</Message>
       </TestWrapper>,
       scratch,
     );
