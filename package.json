@@ -1,0 +1,55 @@
+{
+  "name": "@shopify/preact-testing",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Modern testing support for Preact",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "build": "tsc --p tsconfig.json",
+    "test": "jest"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/preact-testing.git",
+    "directory": "packages/preact-testing"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/preact-testing/issues"
+  },
+  "homepage": "https://github.com/Shopify/preact-testing/blob/master/README.md",
+  "dependencies": {
+    "@shopify/useful-types": "^2.1.4",
+    "jest-matcher-utils": "^25.1.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.8.3",
+    "@babel/preset-env": "^7.8.6",
+    "@types/jest": "^25.1.2",
+    "@types/jest-matcher-utils": "^25.1.0",
+    "babel": "^6.23.0",
+    "babel-jest": "^25.1.0",
+    "babel-preset-shopify": "^21.0.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-shopify": "^35.0.0",
+    "jest": "^25.1.0",
+    "preact": "^10.3.2",
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.7.5"
+  },
+  "files": [
+    "dist/*",
+    "!tsconfig.tsbuildinfo",
+    "matchers.js",
+    "matchers.d.ts"
+  ],
+  "peerDependencies": {
+    "preact": ">=10.3.0"
+  }
+}
