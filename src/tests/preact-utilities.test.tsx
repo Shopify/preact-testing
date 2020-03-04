@@ -39,18 +39,6 @@ describe('Preact utilities', () => {
       });
     });
   });
-
-  // describe('memo', () => {
-  //   it('what even does a memo', () => {
-  //     function Message({children}: {children?: ComponentChild}) {
-  //       return <div>{children}</div>;
-  //     }
-  //     const MyComponent = memo(() => <Message>Hello world</Message>);
-  //     const vdom: any = <MyComponent />;
-  //     render(vdom, scratch);
-  //     console.log(vdom.__k[0].__k)
-  //   });
-  // });
 });
 
 function MyComponent() {

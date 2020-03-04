@@ -4,7 +4,7 @@ import {
   ComponentChild,
   Component,
   Fragment,
-  Ref
+  Ref,
 } from 'preact';
 import {memo, PureComponent, forwardRef} from 'preact/compat';
 import {useState, useEffect} from 'preact/hooks';
@@ -14,34 +14,50 @@ import {ComponentType} from '../types';
 
 describe('@shopify/preact-testing', () => {
   it('can output structured debug strings', () => {
-    const wrapper = mount(<div><span>hi</span></div>);
+    const wrapper = mount(
+      <div>
+        <span>hi</span>
+      </div>,
+    );
     expect(wrapper.debug()).toBe(
 `<div>
   <span />
-</div>`
+</div>`,
     );
   });
 
   it('can find dom components', () => {
-    const wrapper = mount(<div><span>hi</span></div>);
+    const wrapper = mount(
+      <div>
+        <span>hi</span>
+      </div>,
+    );
     expect(wrapper.find('span')?.text()).toBe('hi');
   });
 
   it('can findAll dom components', () => {
-    const wrapper = mount(<div><span>hi</span><span>howdy</span></div>);
-    
-    expect(wrapper.findAll('span').map((component) => component.text())).toStrictEqual([
-      'hi',
-      'howdy',
-    ]);
+    const wrapper = mount(
+      <div>
+        <span>hi</span>
+        <span>howdy</span>
+      </div>,
+    );
+
+    expect(
+      wrapper.findAll('span').map((component) => component.text()),
+    ).toStrictEqual(['hi', 'howdy']);
   });
-  
+
   it('can find functional components', () => {
     function Message({children}: {children?: ComponentChild}) {
       return <span>{children}</span>;
     }
 
-    const wrapper = mount(<div><Message>hi</Message></div>);
+    const wrapper = mount(
+      <div>
+        <Message>hi</Message>
+      </div>,
+    );
     expect(wrapper.find(Message)?.text()).toBe('hi');
   });
 
@@ -49,14 +65,18 @@ describe('@shopify/preact-testing', () => {
     function Message({children}: {children?: ComponentChild}) {
       return <span>{children}</span>;
     }
-    const wrapper = mount(<div><Message>hi</Message><Message>howdy</Message></div>);
-    
-    expect(wrapper.findAll(Message).map((component) => component.text())).toStrictEqual([
-      'hi',
-      'howdy',
-    ]);
+    const wrapper = mount(
+      <div>
+        <Message>hi</Message>
+        <Message>howdy</Message>
+      </div>,
+    );
+
+    expect(
+      wrapper.findAll(Message).map((component) => component.text()),
+    ).toStrictEqual(['hi', 'howdy']);
   });
-    
+
   it('can find class components', () => {
     class Message extends Component<{children?: ComponentChild}> {
       render() {
@@ -64,7 +84,11 @@ describe('@shopify/preact-testing', () => {
       }
     }
 
-    const wrapper = mount(<div><Message>hi</Message></div>);
+    const wrapper = mount(
+      <div>
+        <Message>hi</Message>
+      </div>,
+    );
     expect(wrapper.find(Message)?.text()).toBe('hi');
   });
 
@@ -83,7 +107,7 @@ describe('@shopify/preact-testing', () => {
     const myComponent = mount(<MyComponent />);
     expect(myComponent.find(Context.Provider)).not.toBeNull();
   });
-  
+
   it('throws an error when the component is already mounted', () => {
     const wrapper = mount(<div>Hello world</div>);
 
@@ -133,7 +157,13 @@ describe('@shopify/preact-testing', () => {
     });
 
     it('updates element tree when state is changed by an effect after changing props', () => {
-      function PropBasedEffectChangeComponent({value, children}: {children?: ComponentChild, value: number}) {
+      function PropBasedEffectChangeComponent({
+        value,
+        children,
+      }: {
+        children?: ComponentChild;
+        value: number;
+      }) {
         const [counter, setCounter] = useState(value);
         useEffect(() => setCounter(value), [value]);
         return (
@@ -143,12 +173,11 @@ describe('@shopify/preact-testing', () => {
           </div>
         );
       }
-      const wrapper = mount(<PropBasedEffectChangeComponent value={0}/>);
+      const wrapper = mount(<PropBasedEffectChangeComponent value={0} />);
       expect(wrapper.find(Message)?.html()).toBe('<span>0</span>');
       wrapper.setProps({value: 100});
       expect(wrapper.find(Message)?.html()).toBe('<span>100</span>');
     });
-
 
     it('updates element tree when props are changed', () => {
       const wrapper = mount(<Counter />);
@@ -228,7 +257,6 @@ describe('@shopify/preact-testing', () => {
       const vdom = <Message>Hello world</Message>;
       const MyComponent = memo(() => vdom);
       const wrapper = mount(<MyComponent />);
-      const otherWrapper = mount(vdom);
       expect(wrapper.text()).toBe('Hello world');
       expect(wrapper.text()).toBe(wrapper.find(Message)!.text());
     });
@@ -295,16 +323,17 @@ describe('@shopify/preact-testing', () => {
         return <div>{children}</div>;
       }
 
-      const MyComponent = forwardRef<HTMLDivElement, {}>(
-        function MyComponent(_props: {}, ref: Ref<HTMLDivElement>) {
-          return (
-            <Fragment>
-              <div ref={ref}>Message is:</div>
-              <Message>Hello world</Message>
-            </Fragment>
-          );
-        },
-      );
+      const MyComponent = forwardRef<HTMLDivElement, {}>(function MyComponent(
+        _props: {},
+        ref: Ref<HTMLDivElement>,
+      ) {
+        return (
+          <Fragment>
+            <div ref={ref}>Message is:</div>
+            <Message>Hello world</Message>
+          </Fragment>
+        );
+      });
 
       const myComponent = mount(<MyComponent />);
 
