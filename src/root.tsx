@@ -302,7 +302,6 @@ function buildElementWrappers(node: ComponentChild, root: Root<any>): NodeTree {
   if (isVNode(node)) {
     const props = {...node.props};
     const {children, descendants} = childrenToTree(getDescendants(node), root);
-    // const children = nodeTree(getChildren(node), root);
 
     return [
       new Element(
@@ -330,13 +329,13 @@ function isVNode(maybeNode: ComponentChild): maybeNode is VNode<unknown> {
   );
 }
 
-function childrenToTree(children: any, root: Root<any>) {
+function childrenToTree(children: ComponentChild, root: Root<any>) {
   return array(children).reduce(
-    (accumulator, next: ComponentChild) => {
+    (accumulator: {children: NodeTree, descendants: NodeTree}, next: ComponentChild) => {
       accumulator.children.push(buildElementWrappers(next, root)[0]);
       accumulator.descendants.push(...buildElementWrappers(next, root));
       return accumulator;
     },
     {children: [] as NodeTree, descendants: [] as NodeTree},
-  ) as any;
+  );
 }
