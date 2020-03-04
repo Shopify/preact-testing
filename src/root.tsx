@@ -23,8 +23,7 @@ import {
   getVNode,
   getComponent,
   getDOMNode,
-  // installRenderQueue,
-  // rerender,
+  getChildren,
 } from './preact-utilities';
 
 type Render = (element: VNode<unknown>) => VNode<unknown>;
@@ -254,7 +253,7 @@ export class Root<Props extends Record<string, any>> implements Node<Props> {
   private buildElementsFromVDOM() {
     if (this.wrapper) {
       const vnode = getVNode(this.wrapper);
-      const topElement = flatten(vnode, this)[0];
+      const topElement = buildElementWrappers(vnode, this)[0];
       this.root = this.resolveRoot(topElement as any) as any;
     } else {
       this.root = null;
@@ -287,7 +286,7 @@ function defaultRender(element: VNode<unknown>) {
   return element;
 }
 
-function flatten(tree: ComponentChild, root: Root<any>): NodeTree {
+function buildElementWrappers(tree: ComponentChild, root: Root<any>): NodeTree {
   if (tree == null) {
     return [] as Element<any>[];
   }
@@ -295,7 +294,7 @@ function flatten(tree: ComponentChild, root: Root<any>): NodeTree {
   if (isVNode(tree)) {
     const props = {...tree.props};
     const descendants = nodeTree(getDescendants(tree), root);
-    const children = nodeTree(array(props.children), root);
+    const children = nodeTree(getChildren(tree), root);
 
     return [
       new Element(
@@ -323,9 +322,9 @@ function isVNode(maybeNode: ComponentChild): maybeNode is VNode<unknown> {
   );
 }
 
-function nodeTree(children: ComponentChild[], root: Root<any>): NodeTree {
-  return children.reduce(
-    (accumulator: NodeTree, next: ComponentChild) => accumulator.concat(flatten(next, root)),
+function nodeTree(children: ComponentChild | ComponentChild[], root: Root<any>): NodeTree {
+  return array(children).reduce(
+    (accumulator: NodeTree, next: ComponentChild) => accumulator.concat(buildElementWrappers(next, root)),
     [] as NodeTree,
   ) as any;
 }

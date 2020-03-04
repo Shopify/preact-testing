@@ -144,38 +144,14 @@ describe('@shopify/preact-testing', () => {
 
   describe('traversal', () => {
     it('can traverse through portals', () => {
-      function Portal({children}: {children: VNode}) {
-        const [mounted, setMounted] = useState(false);
-        const element = useRef<HTMLElement | null>(null);
-
-        useEffect(() => {
-          if (!mounted) {
-            element.current = document.createElement('div');
-            document.body.appendChild(element.current);
-            setMounted(true);
-          }
-
-          return () => {
-            if (element.current != null) {
-              element.current.remove();
-            }
-          };
-        }, [mounted]);
-
-        return element.current ? createPortal(children, element.current) : null;
-      }
-
       function MyComponent() {
         return <div>Hello world!</div>;
       }
 
-      const portal = mount(
-        <Portal>
-          <MyComponent />
-        </Portal>,
-      );
-
-      expect(portal.find(MyComponent)).not.toBeNull();
+      const portal = document.createElement('div');
+      const vdom = createPortal(<MyComponent />, portal);
+      const wrapper = mount(vdom);
+      expect(wrapper.find(MyComponent)).not.toBeNull();
     });
 
     it('can traverse through context providers and consumers', () => {

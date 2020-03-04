@@ -1,4 +1,5 @@
-import {Component, VNode, options} from 'preact';
+import {h, Component, VNode} from 'preact';
+import {createPortal} from 'preact/compat';
 
 /**
  * Preact mangles it's private internals, this module helps us access them safely(ish)
@@ -20,10 +21,21 @@ interface PreactVNode<P> extends VNode<P> {
   __k: VNode[] | null;
 }
 
+export type PortalNode = PreactVNode<PortalProps>;
+
+interface PortalProps {
+  vnode: PreactVNode<unknown>;
+  container: HTMLElement;
+}
+
 /**
  * Return the descendants of the given vnode from it's last render.
  */
-export function getDescendants<P>(node: VNode<P>): VNode[] {
+export function getDescendants<P>(node: VNode<P>) {
+  if (isPortal(node)) {
+    return getPortalContent(node);
+  }
+
   return (node as PreactVNode<P>).__k || [];
 }
 
@@ -48,39 +60,24 @@ export function getVNode<P>(component: Component<P>) {
   return (component as PreactComponent<P>).__v;
 }
 
-/**
- * Simplified version of Preact's render queueing, render in the next tick
- */
-function defer(callback: () => any) {
-  Promise.resolve().then(callback);
+// Portals always use the same component function but it is only accessible by the `type` of the vdom node returned by `createPortal`
+const PORTAL_TYPE = createPortal(<div>dummy portal</div>, document.createElement('div')).type;
+export function isPortal(node: VNode<unknown>): node is VNode<PortalProps> {
+  return node.type === PORTAL_TYPE;
 }
 
-let debounceInstalled = false;
-const pendingRenders = new Set<() => any>();
-
-/**
- * Install an `options.debounceRendering` hook that tracks any renders scheduled by Preact
- */
-export function installRenderQueue() {
-  if (debounceInstalled) {
-    return;
-  }
-  
-  const originalDebounce = options.debounceRendering || defer;
-  
-  function debounceRender(callback: () => any) {
-    pendingRenders.add(callback);
-    originalDebounce.call(null, callback);
-  }
-
-  options.debounceRendering = debounceRender;
-  debounceInstalled = true;
+export function getPortalContainer<P>(node: VNode<P>) {
+  return ((node as any) as PreactVNode<PortalProps>).props.container;
 }
 
-/**
- * Run all pending renders
- */
-export function rerender() {
-  pendingRenders.forEach(cb => cb());
-  pendingRenders.clear();
+export function getPortalContent<P>(node: VNode<P>) {
+  return ((node as any) as PreactVNode<PortalProps>).props.vnode;
+}
+
+export function getChildren<P>(node: VNode<P>) {
+  if (isPortal(node)) {
+    return getPortalContent(node);
+  }
+
+  return node.props.children;
 }
