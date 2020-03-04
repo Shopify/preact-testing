@@ -10,14 +10,14 @@ import {Node} from '../types';
 
 import {assertIsNode, diffs, printType} from './utilities';
 
-export function toProvidePreactContext<Type>(
+export function toProvideContext<Type>(
   this: jest.MatcherUtils,
   node: Node<unknown>,
   Context: Context<Type>,
   value?: Type,
 ) {
   assertIsNode(node, {
-    expectation: 'toProvidePreactContext',
+    expectation: 'toProvideContext',
     isNot: this.isNot,
   });
 
@@ -34,7 +34,7 @@ export function toProvidePreactContext<Type>(
 
   const message = pass
     ? () =>
-        `${matcherHint('.not.toProvidePreactContext')}\n\n` +
+        `${matcherHint('.not.toProvideContext')}\n\n` +
         `Expected the React element:\n  ${receivedColor(node.toString())}\n` +
         `Not to contain context provider:\n  ${expectedColor(
           printType(Context.Provider),
@@ -45,7 +45,7 @@ export function toProvidePreactContext<Type>(
           foundByValue.length === 1 ? 's were' : ' was'
         } found.\n`
     : () =>
-        `${`${matcherHint('.toProvidePreactContext')}\n\n` +
+        `${`${matcherHint('.toProvideContext')}\n\n` +
           `Expected the React element:\n  ${receivedColor(node.toString())}\n` +
           `To contain context provider:\n  ${expectedColor(
             printType(Context.Provider),

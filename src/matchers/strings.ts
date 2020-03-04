@@ -43,7 +43,7 @@ export function toContainReactText<Props>(
   return {pass, message};
 }
 
-export function toContainPreactHtml<Props>(
+export function toContainHtml<Props>(
   this: jest.MatcherUtils,
   node: Node<Props>,
   text: string,

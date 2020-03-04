@@ -9,7 +9,7 @@ import {Node} from '../types';
 
 import {assertIsNode, diffPropsForNode} from './utilities';
 
-export function toHavePreactProps<Props>(
+export function toHaveProps<Props>(
   this: jest.MatcherUtils,
   node: Node<Props>,
   props: Partial<Props>,
@@ -57,7 +57,7 @@ export function toHavePreactProps<Props>(
   return {pass, message};
 }
 
-export function toHaveReactDataProps(
+export function toHaveDataProps(
   this: jest.MatcherUtils,
   node: Node<unknown>,
   data: {[key: string]: string},

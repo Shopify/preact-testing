@@ -7,9 +7,9 @@ import {
   Ref,
 } from 'preact';
 import {memo, PureComponent, forwardRef} from 'preact/compat';
-import {useState, useEffect} from 'preact/hooks';
+import {useState, useEffect, useContext} from 'preact/hooks';
 import {createPortal} from 'preact/compat';
-import {mount} from '../mount';
+import {mount, createMount} from '../mount';
 import {ComponentType} from '../types';
 
 describe('@shopify/preact-testing', () => {
@@ -20,7 +20,7 @@ describe('@shopify/preact-testing', () => {
       </div>,
     );
     expect(wrapper.debug()).toBe(
-`<div>
+      `<div>
   <span />
 </div>`,
     );
@@ -339,6 +339,68 @@ describe('@shopify/preact-testing', () => {
 
       expect(myComponent.find(Message)!.text()).toBe('Hello world');
       expect(myComponent.text()).toContain(myComponent.find(Message)!.text());
+    });
+  });
+
+  describe('customized mount', () => {
+    it('treats the rendered component as the root despite any rendered wrapper', () => {
+      const customMount = createMount({
+        render: (vdom) => <div>{vdom}</div>,
+      });
+
+      function Message({children}: {children?: ComponentChild}) {
+        return <div>{children}</div>;
+      }
+      expect(customMount(<Message>hi</Message>).html()).toBe('<div>hi</div>');
+    });
+
+    it('provides context as a property on the root wrapper', () => {
+      const AppContext = createContext('not the right message');
+      const mountWithContext = createMount<
+        {message: string},
+        {message: string}
+      >({
+        context: ({message}) => ({message}),
+        render: (vdom, context) => {
+          return (
+            <AppContext.Provider value={context.message}>
+              {vdom}
+            </AppContext.Provider>
+          );
+        },
+      });
+
+      function ContextMessage() {
+        const message = useContext(AppContext);
+        return <div>{message}</div>;
+      }
+
+      const wrapper = mountWithContext(<ContextMessage />, {
+        message: 'the right message',
+      });
+      expect(wrapper.context.message).toBe('the right message');
+      expect(wrapper.html()).toBe(`<div>${wrapper.context.message}</div>`);
+    });
+
+    it('runs the afterMount function after rendering', () => {
+      const spy = jest.fn();
+      const mountWithContext = createMount<
+        {message: string},
+        {message: string}
+      >({
+        render: (vdom) => {
+          spy('render');
+          return vdom;
+        },
+        afterMount: () => spy('afterMount'),
+      });
+
+      function Message({children}: {children?: ComponentChild}) {
+        return <div>{children}</div>;
+      }
+
+      const wrapper = mountWithContext(<Message />);
+      expect(spy.mock.calls).toEqual([['render'], ['render'], ['afterMount']]);
     });
   });
 });

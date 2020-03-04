@@ -2,13 +2,13 @@ import 'jest';
 import {ComponentType, Context as ReactContext} from 'preact';
 import {Node, PropsFor} from '../types';
 
-import {toHavePreactProps, toHaveReactDataProps} from './props';
+import {toHaveProps, toHaveDataProps} from './props';
 import {
-  toContainPreactComponent,
-  toContainPreactComponentTimes,
+  toContainComponent,
+  toContainComponentTimes,
 } from './components';
-import {toProvidePreactContext} from './context';
-import {toContainReactText, toContainPreactHtml} from './strings';
+import {toProvideContext} from './context';
+import {toContainReactText, toContainHtml} from './strings';
 
 type PropsFromNode<T> = T extends Node<infer U> ? U : never;
 
@@ -16,33 +16,33 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
     interface Matchers<R> {
-      toHavePreactProps(props: Partial<PropsFromNode<R>>): void;
+      toHaveProps(props: Partial<PropsFromNode<R>>): void;
       toHaveReactDataProps(data: {[key: string]: string}): void;
-      toContainPreactComponent<Type extends string | ComponentType<any>>(
+      toContainComponent<Type extends string | ComponentType<any>>(
         type: Type,
         props?: Partial<PropsFor<Type>>,
       ): void;
-      toContainPreactComponentTimes<Type extends string | ComponentType<any>>(
+      toContainComponentTimes<Type extends string | ComponentType<any>>(
         type: Type,
         times: number,
         props?: Partial<PropsFor<Type>>,
       ): void;
-      toProvidePreactContext<Type>(
+      toProvideContext<Type>(
         context: ReactContext<Type>,
         value?: Type,
       ): void;
       toContainReactText(text: string): void;
-      toContainPreactHtml(text: string): void;
+      toContainHtml(text: string): void;
     }
   }
 }
 
 expect.extend({
-  toHavePreactProps,
-  toHaveReactDataProps,
-  toContainPreactComponent,
-  toContainPreactComponentTimes,
+  toHaveProps,
+  toHaveDataProps,
+  toContainComponent,
+  toContainComponentTimes,
   toContainReactText,
-  toContainPreactHtml,
-  toProvidePreactContext,
+  toContainHtml,
+  toProvideContext,
 });
