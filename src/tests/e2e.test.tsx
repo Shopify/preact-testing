@@ -1,6 +1,5 @@
 import {
   h,
-  VNode,
   createContext,
   ComponentChild,
   Component,
@@ -8,12 +7,21 @@ import {
   Ref
 } from 'preact';
 import {memo, PureComponent, forwardRef} from 'preact/compat';
-import {useState, useEffect, useRef} from 'preact/hooks';
+import {useState, useEffect} from 'preact/hooks';
 import {createPortal} from 'preact/compat';
 import {mount} from '../mount';
 import {ComponentType} from '../types';
 
 describe('@shopify/preact-testing', () => {
+  it('can output structured debug strings', () => {
+    const wrapper = mount(<div><span>hi</span></div>);
+    expect(wrapper.debug()).toBe(
+`<div>
+  <span />
+</div>`
+    );
+  });
+
   it('can find dom components', () => {
     const wrapper = mount(<div><span>hi</span></div>);
     expect(wrapper.find('span')?.text()).toBe('hi');
@@ -101,14 +109,48 @@ describe('@shopify/preact-testing', () => {
       );
     }
 
-    it('Updates element tree when state is changed', () => {
+    it('updates element tree when state is changed', () => {
       const wrapper = mount(<Counter />);
 
       wrapper.find('button')!.trigger('onClick');
-      expect(wrapper.find(Message)?.html()).toBe('1');
+      expect(wrapper.find(Message)?.html()).toBe('<span>1</span>');
     });
 
-    it('Updates element tree when props are changed', () => {
+    it('updates element tree when state is changed by an effect', () => {
+      function EffectChangeComponent({children}: {children?: ComponentChild}) {
+        const [counter, setCounter] = useState(0);
+        useEffect(() => setCounter(100));
+        return (
+          <div>
+            <Message>{counter}</Message>
+            {children}
+          </div>
+        );
+      }
+      const wrapper = mount(<EffectChangeComponent />);
+
+      expect(wrapper.find(Message)?.html()).toBe('<span>100</span>');
+    });
+
+    it('updates element tree when state is changed by an effect after changing props', () => {
+      function PropBasedEffectChangeComponent({value, children}: {children?: ComponentChild, value: number}) {
+        const [counter, setCounter] = useState(value);
+        useEffect(() => setCounter(value), [value]);
+        return (
+          <div>
+            <Message>{counter}</Message>
+            {children}
+          </div>
+        );
+      }
+      const wrapper = mount(<PropBasedEffectChangeComponent value={0}/>);
+      expect(wrapper.find(Message)?.html()).toBe('<span>0</span>');
+      wrapper.setProps({value: 100});
+      expect(wrapper.find(Message)?.html()).toBe('<span>100</span>');
+    });
+
+
+    it('updates element tree when props are changed', () => {
       const wrapper = mount(<Counter />);
       expect(wrapper.find('div')?.html()).not.toMatch('hi hello');
       wrapper.setProps({children: <div>hi hello</div>});
@@ -183,11 +225,11 @@ describe('@shopify/preact-testing', () => {
       function Message({children}: {children?: ComponentChild}) {
         return <div>{children}</div>;
       }
-
-      const MyComponent = memo(() => <Message>Hello world</Message>);
+      const vdom = <Message>Hello world</Message>;
+      const MyComponent = memo(() => vdom);
       const wrapper = mount(<MyComponent />);
-
-      expect(wrapper.find(Message)!.text()).toBe('Hello world');
+      const otherWrapper = mount(vdom);
+      expect(wrapper.text()).toBe('Hello world');
       expect(wrapper.text()).toBe(wrapper.find(Message)!.text());
     });
 

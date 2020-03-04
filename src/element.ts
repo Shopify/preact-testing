@@ -29,6 +29,14 @@ export class Element<Props extends any> implements Node<Props> {
     return this.tree.props;
   }
 
+  get displayName() {
+    if(this.isDOM) {
+      return this.type;
+    }
+
+    return (this.type as any)?.displayName || '';
+  }
+
   get type() {
     return this.tree.type;
   }
@@ -42,7 +50,7 @@ export class Element<Props extends any> implements Node<Props> {
   }
 
   get children() {
-    return this.elementDescendants;
+    return this.elementChildren;
   }
 
   get descendants() {
@@ -100,13 +108,13 @@ export class Element<Props extends any> implements Node<Props> {
   text(): string {
     const {
       instance,
-      allDescendants,
+      children,
     } = this;
     if (instance instanceof HTMLElement) {
       return instance.textContent || '';
     }
-
-    return allDescendants.reduce<string>(
+    
+    return children.reduce<string>(
       (text, child) =>
         text + (typeof child === 'string' ? child : child.text()),
       '',
@@ -116,14 +124,14 @@ export class Element<Props extends any> implements Node<Props> {
   html(): string {
     const {
       instance,
-      allChildren,
+      children,
     } = this;
 
     if (instance instanceof HTMLElement) {
       return instance.outerHTML;
     }
 
-    return allChildren.reduce<string>(
+    return children.reduce<string>(
       (text, child) =>
         text + (typeof child === 'string' ? child : child.html()),
       '',

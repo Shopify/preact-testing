@@ -21,6 +21,12 @@ interface PreactVNode<P> extends VNode<P> {
   __k: VNode[] | null;
 }
 
+interface TextNode {
+  type: null;
+
+  props: string;
+}
+
 export type PortalNode = PreactVNode<PortalProps>;
 
 interface PortalProps {
@@ -64,6 +70,11 @@ export function getVNode<P>(component: Component<P>) {
 const PORTAL_TYPE = createPortal(<div>dummy portal</div>, document.createElement('div')).type;
 export function isPortal(node: VNode<unknown>): node is VNode<PortalProps> {
   return node.type === PORTAL_TYPE;
+}
+
+// Text nodes in peact are very weird, they actually have a null `type` field (despite that not being part of the type for VNode) and their props are just the text content (despite that being typed as an object)
+export function isTextNode(node: any): node is TextNode {
+  return node.type === null && typeof node.props === 'string';
 }
 
 export function getPortalContainer<P>(node: VNode<P>) {

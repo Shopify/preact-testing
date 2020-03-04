@@ -24,6 +24,7 @@ import {
   getComponent,
   getDOMNode,
   getChildren,
+  isTextNode,
 } from './preact-utilities';
 
 type Render = (element: VNode<unknown>) => VNode<unknown>;
@@ -202,6 +203,9 @@ export class Root<Props extends Record<string, any>> implements Node<Props> {
 
     render(this.wrappedVDom, this.element);
     this.buildElementsFromVDOM();
+    
+    // force a rerender to allow `useEffect` state updates to be represented
+    this.forceUpdate();
   }
 
   rerender() {
@@ -286,22 +290,26 @@ function defaultRender(element: VNode<unknown>) {
   return element;
 }
 
-function buildElementWrappers(tree: ComponentChild, root: Root<any>): NodeTree {
-  if (tree == null) {
+function buildElementWrappers(node: ComponentChild, root: Root<any>): NodeTree {
+  if (node == null) {
     return [] as Element<any>[];
   }
 
-  if (isVNode(tree)) {
-    const props = {...tree.props};
-    const descendants = nodeTree(getDescendants(tree), root);
-    const children = nodeTree(getChildren(tree), root);
+  if (isTextNode(node)) {
+    return [node.props];
+  }
+
+  if (isVNode(node)) {
+    const props = {...node.props};
+    const {children, descendants} = childrenToTree(getDescendants(node), root);
+    // const children = nodeTree(getChildren(node), root);
 
     return [
       new Element(
         {
-          type: tree.type,
+          type: node.type,
           props,
-          instance: getComponent(tree) || getDOMNode(tree),
+          instance: getComponent(node) || getDOMNode(node),
         },
         children,
         descendants,
@@ -310,8 +318,8 @@ function buildElementWrappers(tree: ComponentChild, root: Root<any>): NodeTree {
       ...descendants,
     ];
   }
-
-  return [tree.toString()];
+  
+  return [node.toString()];
 }
 
 function isVNode(maybeNode: ComponentChild): maybeNode is VNode<unknown> {
@@ -322,9 +330,13 @@ function isVNode(maybeNode: ComponentChild): maybeNode is VNode<unknown> {
   );
 }
 
-function nodeTree(children: ComponentChild | ComponentChild[], root: Root<any>): NodeTree {
+function childrenToTree(children: any, root: Root<any>) {
   return array(children).reduce(
-    (accumulator: NodeTree, next: ComponentChild) => accumulator.concat(buildElementWrappers(next, root)),
-    [] as NodeTree,
+    (accumulator, next: ComponentChild) => {
+      accumulator.children.push(buildElementWrappers(next, root)[0]);
+      accumulator.descendants.push(...buildElementWrappers(next, root));
+      return accumulator;
+    },
+    {children: [] as NodeTree, descendants: [] as NodeTree},
   ) as any;
 }
