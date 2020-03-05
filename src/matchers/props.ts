@@ -36,7 +36,7 @@ export function toHaveProps<Props>(
   const message = pass
     ? () =>
         `${matcherHint('.not.toHavePreactProps', node.toString())}\n\n` +
-        `Expected the React element:\n  ${receivedColor(node.toString())}\n` +
+        `Expected the element:\n  ${receivedColor(node.toString())}\n` +
         `Not to have props:\n  ${printExpected(props)}\n` +
         `Received:\n  ${printReceived(node.props)}\n`
     : () => {
@@ -46,7 +46,7 @@ export function toHaveProps<Props>(
 
         return (
           `${matcherHint('.toHavePreactProps', node.toString())}\n\n` +
-          `Expected the React element:\n  ${receivedColor(node.toString())}\n` +
+          `Expected the element:\n  ${receivedColor(node.toString())}\n` +
           `To have props:\n  ${printExpected(props)}\n` +
           `Received:\n  ${printReceived(node.props)}\n${
             diffString ? `Difference:\n${diffString}\n` : ''

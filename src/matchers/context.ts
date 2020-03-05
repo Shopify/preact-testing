@@ -35,7 +35,7 @@ export function toProvideContext<Type>(
   const message = pass
     ? () =>
         `${matcherHint('.not.toProvideContext')}\n\n` +
-        `Expected the React element:\n  ${receivedColor(node.toString())}\n` +
+        `Expected the element:\n  ${receivedColor(node.toString())}\n` +
         `Not to contain context provider:\n  ${expectedColor(
           printType(Context.Provider),
         )}\n${
@@ -46,7 +46,7 @@ export function toProvideContext<Type>(
         } found.\n`
     : () =>
         `${`${matcherHint('.toProvideContext')}\n\n` +
-          `Expected the React element:\n  ${receivedColor(node.toString())}\n` +
+          `Expected the element:\n  ${receivedColor(node.toString())}\n` +
           `To contain context provider:\n  ${expectedColor(
             printType(Context.Provider),
           )}\n${

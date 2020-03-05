@@ -8,7 +8,7 @@ import {
   toContainComponentTimes,
 } from './components';
 import {toProvideContext} from './context';
-import {toContainReactText, toContainHtml} from './strings';
+import {toContainText, toContainHtml} from './strings';
 
 type PropsFromNode<T> = T extends Node<infer U> ? U : never;
 
@@ -31,7 +31,7 @@ declare global {
         context: ReactContext<Type>,
         value?: Type,
       ): void;
-      toContainReactText(text: string): void;
+      toContainText(text: string): void;
       toContainHtml(text: string): void;
     }
   }
@@ -42,7 +42,7 @@ expect.extend({
   toHaveDataProps,
   toContainComponent,
   toContainComponentTimes,
-  toContainReactText,
+  toContainText,
   toContainHtml,
   toProvideContext,
 });

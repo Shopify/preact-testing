@@ -49,7 +49,7 @@ export function toContainComponent<
   const message = pass
     ? () =>
         `${matcherHint('.not.toContainComponent')}\n\n` +
-        `Expected the React element:\n  ${receivedColor(node.toString())}\n` +
+        `Expected the element:\n  ${receivedColor(node.toString())}\n` +
         `Not to contain component:\n  ${expectedColor(printType(type))}\n${
           props ? `With props matching:\n  ${printExpected(props)}\n` : ''
         }` +
@@ -58,7 +58,7 @@ export function toContainComponent<
         } found.\n`
     : () =>
         `${`${matcherHint('.toContainComponent')}\n\n` +
-          `Expected the React element:\n  ${receivedColor(node.toString())}\n` +
+          `Expected the element:\n  ${receivedColor(node.toString())}\n` +
           `To contain component:\n  ${expectedColor(printType(type))}\n${
             props ? `With props matching:\n  ${printExpected(props)}\n` : ''
           }`}${
@@ -113,14 +113,14 @@ export function toContainComponentTimes<
     ? () =>
         [
           `${matcherHint('.not.toContainComponentTimes')}\n`,
-          `Expected the React element:\n  ${receivedColor(node.toString())}`,
+          `Expected the element:\n  ${receivedColor(node.toString())}`,
           `Not to contain component:\n  ${expectedColor(printType(type))}`,
           `${times} ${pluralize('time', times)}, but it did.`,
         ].join('\n')
     : () =>
         [
           `${matcherHint('.toContainComponentTimes')}\n`,
-          `Expected the React element:\n  ${receivedColor(node.toString())}`,
+          `Expected the element:\n  ${receivedColor(node.toString())}`,
           `To contain component:\n  ${expectedColor(printType(type))}`,
           `${times} ${pluralize('time', times)}, but it was found ${
             foundByProps.length

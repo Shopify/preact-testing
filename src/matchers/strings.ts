@@ -10,13 +10,13 @@ import {Node} from '../types';
 
 import {assertIsNode} from './utilities';
 
-export function toContainReactText<Props>(
+export function toContainText<Props>(
   this: jest.MatcherUtils,
   node: Node<Props>,
   text: string,
 ) {
   assertIsNode(node, {
-    expectation: 'toContainReactText',
+    expectation: 'toContainText',
     isNot: this.isNot,
   });
 
@@ -26,8 +26,8 @@ export function toContainReactText<Props>(
 
   const message = pass
     ? () =>
-        `${matcherHint('.not.toContainReactText', node.toString())}\n\n` +
-        `Expected the React element:\n  ${receivedColor(node.toString())}\n` +
+        `${matcherHint('.not.toContainText', node.toString())}\n\n` +
+        `Expected the element:\n  ${receivedColor(node.toString())}\n` +
         `Not to contain text:\n  ${printExpected(text)}\n` +
         `But it did:\n  ${printReceivedWithHighlight(
           nodeText,
@@ -35,8 +35,8 @@ export function toContainReactText<Props>(
           text.length,
         )}\n`
     : () =>
-        `${matcherHint('.not.toContainReactText', node.toString())}\n\n` +
-        `Expected the React element:\n  ${receivedColor(node.toString())}\n` +
+        `${matcherHint('.not.toContainText', node.toString())}\n\n` +
+        `Expected the element:\n  ${receivedColor(node.toString())}\n` +
         `With text content:\n  ${printReceived(nodeText)}\n` +
         `To contain string:\n  ${printExpected(text)}\n`;
 
@@ -49,7 +49,7 @@ export function toContainHtml<Props>(
   text: string,
 ) {
   assertIsNode(node, {
-    expectation: 'toContainPreactHtml',
+    expectation: 'toContainHtml',
     isNot: this.isNot,
   });
 
@@ -59,8 +59,8 @@ export function toContainHtml<Props>(
 
   const message = pass
     ? () =>
-        `${matcherHint('.not.toContainPreactHtml', node.toString())}\n\n` +
-        `Expected the React element:\n  ${receivedColor(node.toString())}\n` +
+        `${matcherHint('.not.toContainHtml', node.toString())}\n\n` +
+        `Expected the element:\n  ${receivedColor(node.toString())}\n` +
         `Not to contain HTML:\n  ${printExpected(text)}\n` +
         `But it did:\n  ${printReceivedWithHighlight(
           nodeHtml,
@@ -68,8 +68,8 @@ export function toContainHtml<Props>(
           text.length,
         )}\n`
     : () =>
-        `${matcherHint('.not.toContainPreactHtml', node.toString())}\n\n` +
-        `Expected the React element:\n  ${receivedColor(node.toString())}\n` +
+        `${matcherHint('.not.toContainHtml', node.toString())}\n\n` +
+        `Expected the element:\n  ${receivedColor(node.toString())}\n` +
         `With HTML content:\n  ${printReceived(nodeHtml)}\n` +
         `To contain HTML:\n  ${printExpected(text)}\n`;
 
