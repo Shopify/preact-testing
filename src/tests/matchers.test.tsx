@@ -1,4 +1,4 @@
-import {h, ComponentChild} from 'preact';
+import {h, ComponentChild, createContext} from 'preact';
 import {mount} from '../mount';
 import '../matchers';
 
@@ -111,9 +111,82 @@ describe('@shopify/preact-testing/matchers', () => {
     });
   });
 
-  describe('toProvideContext', () => {});
+  describe('toProvideContext', () => {
+    const GoodContext = createContext('good');
+    const BadContext = createContext('bad');
 
-  describe('toHaveProps', () => {});
+    it('succeeds when a provider for the given context is rendered', () => {
+      function Component({children}: {children?: ComponentChild}) {
+        return <GoodContext.Provider value="good">{children}</GoodContext.Provider>;
+      }
+  
+      const wrapper = mount(
+        <Component>hi</Component>
+      );
+  
+      expect(wrapper).toProvideContext(GoodContext);
+    });
 
-  describe('toHaveDataProps', () => {});
+    it('fails when there is a provider for a different context rendered', () => {
+      function Component({children}: {children?: ComponentChild}) {
+        return <BadContext.Provider value="bad">{children}</BadContext.Provider>;
+      }
+  
+      const wrapper = mount(
+        <Component>hi</Component>
+      );
+  
+      expect(() => {
+        expect(wrapper).toProvideContext(GoodContext);
+      }).toThrow();
+    });
+
+    it('fails when there is no context provider rendered', () => {
+      function Component({children}: {children?: ComponentChild}) {
+        return <span>{children}</span>;
+      }
+  
+      const wrapper = mount(
+        <Component>hi</Component>
+      );
+    
+      expect(() => {
+        expect(wrapper).toProvideContext(GoodContext);
+      }).toThrow();
+    });
+  });
+
+  describe('toHaveProps', () => {
+    it('succeeds when the component has the given props', () => {
+      function Message({children}: {children?: ComponentChild; floop: number}) {
+        return <span>{children}</span>;
+      }
+
+      const wrapper = mount(
+        <div>
+          <Message floop={3}>hi</Message>
+        </div>,
+      );
+
+      // 💩 need to fix some jest types
+      (expect(wrapper.find(Message)) as any).toHaveProps({floop: 3});
+    });
+
+    it('fails when the component does not have the given props', () => {
+      function Message({children}: {children?: ComponentChild; floop: number}) {
+        return <span>{children}</span>;
+      }
+
+      const wrapper = mount(
+        <div>
+          <Message floop={3}>hi</Message>
+        </div>,
+      );
+
+      expect(() => {
+        // 💩 need to fix some jest types
+        (expect(wrapper.find(Message)) as any).toHaveProps({floopus: 1233});
+      }).toThrow();
+    });
+  });
 });

@@ -62,5 +62,5 @@ export function toHaveDataProps(
   node: Node<unknown>,
   data: {[key: string]: string},
 ) {
-  return toHavePreactProps.call(this, node, data);
+  return toHaveProps.call(this, node, data);
 }
