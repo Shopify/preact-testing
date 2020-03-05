@@ -161,7 +161,7 @@ export class Root<Props extends Record<string, any>> implements Node<Props> {
     const promise = act(() => {
       result = action();
 
-      // The return type of non-async `act()`, DebugPromiseLike, contains a `then` method
+      // The return type of non-async `act()` contains a `then` method
       // This condition checks the returned value is an actual Promise and returns it
       // to Preact's `act()` call, otherwise we just want to return `undefined`
       if (isPromise(result)) {
