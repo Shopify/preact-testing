@@ -1,5 +1,5 @@
 on: push
-name: Main
+name: CI
 jobs:
   lint-and-test:
     name: Test

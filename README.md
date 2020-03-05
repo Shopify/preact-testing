@@ -1,7 +1,7 @@
 
 # `@shopify/preact-testing`
 
-[![Build Status](https://github.com/Shopify/preact-testing/workflows/Main/badge.svg)](https://github.com/Shopify/preact-testing/actions?query=workflow%3AMain)
+[![Build Status](https://github.com/Shopify/preact-testing/workflows/CI/badge.svg)](https://github.com/Shopify/preact-testing/actions?query=workflow%3ACI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Fpreact-testing.svg)](https://badge.fury.io/js/%40shopify%2Fpreact-testing.svg) 
 
 Modern testing support for Preact, based on [@shopify/react-testing](https://github.com/Shopify/quilt/tree/master/packages/react-testing). 
