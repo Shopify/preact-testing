@@ -5,6 +5,7 @@ import {
   Component,
   Fragment,
   Ref,
+  render,
 } from 'preact';
 import {memo, PureComponent, forwardRef} from 'preact/compat';
 import {useState, useEffect, useContext} from 'preact/hooks';
@@ -25,7 +26,7 @@ describe('@shopify/preact-testing', () => {
 </div>`,
     );
   });
-
+  
   it('can find dom components', () => {
     const wrapper = mount(
       <div>
@@ -296,6 +297,16 @@ describe('@shopify/preact-testing', () => {
 
       expect(myComponent.find(Message)!.text()).toBe('Hello world');
       expect(myComponent.text()).toBe(myComponent.find(Message)!.text());
+    });
+
+
+    it('can find text directly inside a fragment', () => {
+      function FragMessage({children}: {children?: ComponentChild}) {
+        return <Fragment>{children}</Fragment>;
+      }
+      const vdom = <FragMessage>oh hi</FragMessage>;
+      const myComponent = mount(vdom);
+      expect(myComponent.text()).toBe('oh hi');
     });
 
     it('can traverse through fragments', () => {

@@ -1,4 +1,4 @@
-import {h} from 'preact';
+import {h, Fragment} from 'preact';
 import {
   Arguments,
   MaybeFunctionReturnType as ReturnType,
@@ -108,13 +108,13 @@ export class Element<Props extends any> implements Node<Props> {
   text(): string {
     const {
       instance,
-      children,
+      allChildren,
     } = this;
     if (instance instanceof HTMLElement) {
       return instance.textContent || '';
     }
     
-    return children.reduce<string>(
+    return allChildren.reduce<string>(
       (text, child) =>
         text + (typeof child === 'string' ? child : child.text()),
       '',
@@ -124,14 +124,14 @@ export class Element<Props extends any> implements Node<Props> {
   html(): string {
     const {
       instance,
-      children,
+      allChildren,
     } = this;
 
     if (instance instanceof HTMLElement) {
       return instance.outerHTML;
     }
 
-    return children.reduce<string>(
+    return allChildren.reduce<string>(
       (text, child) =>
         text + (typeof child === 'string' ? child : child.html()),
       '',

@@ -1,7 +1,7 @@
-import {h, render, ComponentChild} from 'preact';
+import {h, render} from 'preact';
 import {teardown} from 'preact/test-utils';
-import {createPortal, memo} from 'preact/compat';
-import {isPortal, getPortalContent} from '../preact-utilities';
+import {createPortal, Fragment} from 'preact/compat';
+import {isPortal, getPortalContent, getDescendants} from '../preact-utilities';
 
 describe('Preact utilities', () => {
   let scratch: HTMLElement;
@@ -11,6 +11,14 @@ describe('Preact utilities', () => {
   });
 
   afterEach(teardown);
+
+  describe('getDescendants', () => {
+    it('works on fragments', () => {
+      const vdom = <Fragment>oh hi</Fragment>;
+      render(vdom, document.createElement('div'));
+      expect(getDescendants(vdom)[0].props).toBe('oh hi');
+    });
+  });
 
   describe('portals', () => {
     describe('isPortal', () => {

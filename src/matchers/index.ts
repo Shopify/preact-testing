@@ -1,5 +1,6 @@
 import 'jest';
-import {ComponentType, Context as ReactContext} from 'preact';
+import {ComponentType, Context as PreactContext} from 'preact';
+import {ComponentType as ReactComponentType, Context as ReactContext} from 'react';
 import {Node, PropsFor} from '../types';
 
 import {toHaveProps, toHaveDataProps} from './props';
@@ -17,15 +18,28 @@ declare global {
   namespace jest {
     interface Matchers<R> {
       toHaveProps(props: Partial<PropsFromNode<R>>): void;
-      toHaveReactDataProps(data: {[key: string]: string}): void;
+      toHaveDataProps(data: {[key: string]: string}): void;
       toContainComponent<Type extends string | ComponentType<any>>(
         type: Type,
         props?: Partial<PropsFor<Type>>,
       ): void;
-      toContainComponentTimes<Type extends string | ComponentType<any>>(
+      toContainComponent<Type extends string | ReactComponentType<any>>(
+        type: Type,
+        props?: Partial<PropsFor<Type>>,
+      ): void;
+      toContainComponentTimes<Type extends string | ComponentType<any>>(  
         type: Type,
         times: number,
         props?: Partial<PropsFor<Type>>,
+      ): void;
+      toContainComponentTimes<Type extends string | ReactComponentType<any>>(
+        type: Type,
+        times: number,
+        props?: Partial<PropsFor<Type>>,
+      ): void;
+      toProvideContext<Type>(
+        context: PreactContext<Type>,
+        value?: Type,
       ): void;
       toProvideContext<Type>(
         context: ReactContext<Type>,

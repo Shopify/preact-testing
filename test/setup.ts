@@ -1,1 +1,1 @@
-// stub
+import 'preact/debug';

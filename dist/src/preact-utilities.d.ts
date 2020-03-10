@@ -23,7 +23,7 @@ interface PortalProps {
 /**
  * Return the descendants of the given vnode from it's last render.
  */
-export declare function getDescendants<P>(node: VNode<P>): PreactVNode<unknown> | VNode<{}>[];
+export declare function getDescendants<P>(node: VNode<P>): VNode<{}>[] | PreactVNode<unknown>;
 /**
  * Return the rendered DOM node associated with a rendered VNode.
  */

@@ -1,5 +1,5 @@
 import {h, Component, VNode} from 'preact';
-import {createPortal} from 'preact/compat';
+import {createPortal, Fragment} from 'preact/compat';
 
 /**
  * Preact mangles it's private internals, this module helps us access them safely(ish)
@@ -67,7 +67,10 @@ export function getVNode<P>(component: Component<P>) {
 }
 
 // Portals always use the same component function but it is only accessible by the `type` of the vdom node returned by `createPortal`
-const PORTAL_TYPE = createPortal(<div>dummy portal</div>, document.createElement('div')).type;
+const PORTAL_TYPE = createPortal(
+  <div>dummy portal</div>,
+  document.createElement('div'),
+).type;
 export function isPortal(node: VNode<unknown>): node is VNode<PortalProps> {
   return node.type === PORTAL_TYPE;
 }

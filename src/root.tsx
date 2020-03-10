@@ -23,7 +23,6 @@ import {
   getVNode,
   getComponent,
   getDOMNode,
-  getChildren,
   isTextNode,
 } from './preact-utilities';
 
@@ -283,6 +282,10 @@ export class Root<Props extends Record<string, any>> implements Node<Props> {
 }
 
 function defaultResolveRoot(element: Element<any>) {
+  if (element.children.length == 0) {
+    return element;
+  }
+
   return element.children[0];
 }
 

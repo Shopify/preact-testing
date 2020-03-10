@@ -94,20 +94,20 @@ var Element = /** @class */ (function () {
         return this.props[key];
     };
     Element.prototype.text = function () {
-        var _a = this, instance = _a.instance, children = _a.children;
+        var _a = this, instance = _a.instance, allChildren = _a.allChildren;
         if (instance instanceof HTMLElement) {
             return instance.textContent || '';
         }
-        return children.reduce(function (text, child) {
+        return allChildren.reduce(function (text, child) {
             return text + (typeof child === 'string' ? child : child.text());
         }, '');
     };
     Element.prototype.html = function () {
-        var _a = this, instance = _a.instance, children = _a.children;
+        var _a = this, instance = _a.instance, allChildren = _a.allChildren;
         if (instance instanceof HTMLElement) {
             return instance.outerHTML;
         }
-        return children.reduce(function (text, child) {
+        return allChildren.reduce(function (text, child) {
             return text + (typeof child === 'string' ? child : child.html());
         }, '');
     };

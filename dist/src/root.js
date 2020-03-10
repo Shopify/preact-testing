@@ -234,6 +234,9 @@ var Root = /** @class */ (function () {
 }());
 exports.Root = Root;
 function defaultResolveRoot(element) {
+    if (element.children.length == 0) {
+        return element;
+    }
     return element.children[0];
 }
 function defaultRender(element) {

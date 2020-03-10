@@ -126,8 +126,8 @@
         "signature": "de2c9d309b0fcfdb3606cc2cfb469a79569d68a6f422791f18ec9e24f1993af5"
       },
       "../node_modules/preact/src/index.d.ts": {
-        "version": "ae701a6443ab356ca9f47c54d44ede7409a5380762213b6bb0b5315b238f7aa7",
-        "signature": "ae701a6443ab356ca9f47c54d44ede7409a5380762213b6bb0b5315b238f7aa7"
+        "version": "b153e1cd2bd6b62f63b8db753640d13842005ed41df526dcb5dedfcb8fc1241e",
+        "signature": "b153e1cd2bd6b62f63b8db753640d13842005ed41df526dcb5dedfcb8fc1241e"
       },
       "../node_modules/preact/hooks/src/index.d.ts": {
         "version": "e7dd80a4a30006f82672eb9f4bee76a73272c19ee5e6aa025d3035aaf0aec6d8",
@@ -194,7 +194,7 @@
         "signature": "333b88b45647f009a16739d00093a2881a98af2e1a649846b1154ef218e97dd6"
       },
       "../src/element.ts": {
-        "version": "03822c102e354595b0874c408d3960f01698590d1ee1682cee6736eef7aea52a",
+        "version": "725c5069616b4d3da3cb48c4df71e601db8674a8c88fa0ce9c9ee512c1514260",
         "signature": "ba1f53f6ff529d710ed534285e1c557bb2e3e9b46297f198041220973d43226f"
       },
       "../src/util.ts": {
@@ -202,11 +202,11 @@
         "signature": "b1213c63a15a9cf5631ede58d6889be02f0a9caeb519dccc9cb31203f765db65"
       },
       "../src/preact-utilities.tsx": {
-        "version": "5811f4509df8a4f8fec6123afd585647528f4c6d6241a294d870bf25d21acd76",
-        "signature": "fec97eb41e96fa9e3632df5ec47bb7191aeb4318a7c64ce7202975e7d54c5ec4"
+        "version": "d9d017ee8b76462b1933bd8b6d1f93dcd253ea3f9739f87ed54c167ad14fe12d",
+        "signature": "ae4935c321dd60af8860d982d94229ad7e921ea6cffe4dfebc67bae6d275e989"
       },
       "../src/root.tsx": {
-        "version": "485115aeacee111e57a3463729ca9669e8e93603c7494c29f0e8e522cbfa80ef",
+        "version": "e7e2399d419881a865ef9a8f47cacc1025935ddf71fb424428d1dc1cd88b5aa3",
         "signature": "82f59bf6fcad7a0e88f170b5c2a0b888355cec2e503c4bdd28384bb415444f65"
       },
       "../src/destroy.ts": {
@@ -713,6 +713,22 @@
         "version": "3da74606e7a82fbbf5c1bfecaf2790f2a7e26034ffd7532c229e4218f1b47601",
         "signature": "3da74606e7a82fbbf5c1bfecaf2790f2a7e26034ffd7532c229e4218f1b47601"
       },
+      "../node_modules/@types/react/global.d.ts": {
+        "version": "b4cd656db9b65fff477f65dbda00a5de4e2e765375316abd0c3ffd1282664ccc",
+        "signature": "b4cd656db9b65fff477f65dbda00a5de4e2e765375316abd0c3ffd1282664ccc"
+      },
+      "../node_modules/csstype/index.d.ts": {
+        "version": "f9d66b7d0c140496459807082ebe1bd8185a2d7478951881724b708e72fc7386",
+        "signature": "f9d66b7d0c140496459807082ebe1bd8185a2d7478951881724b708e72fc7386"
+      },
+      "../node_modules/@types/prop-types/index.d.ts": {
+        "version": "a7e32dcb90bf0c1b7a1e4ac89b0f7747cbcba25e7beddc1ebf17be1e161842ad",
+        "signature": "a7e32dcb90bf0c1b7a1e4ac89b0f7747cbcba25e7beddc1ebf17be1e161842ad"
+      },
+      "../node_modules/@types/react/index.d.ts": {
+        "version": "80117000ecc19c96155209e7c9b40271f2a1441e0052bfd7f97599e1fa998b83",
+        "signature": "80117000ecc19c96155209e7c9b40271f2a1441e0052bfd7f97599e1fa998b83"
+      },
       "../src/matchers/props.ts": {
         "version": "a4eb5fb50d14c0eff25c434b266589525a814748f2a42d461caf2321d541f766",
         "signature": "66212fd1f5452f6cae20c745c61ce9a3d83dbca500a8e6f1e3d1d34d282e0d56"
@@ -722,8 +738,8 @@
         "signature": "26d5a31b34f3cb066e16530d3d38972772f4dfb25b711f7eb30c030668da967d"
       },
       "../src/matchers/index.ts": {
-        "version": "e83bc313b56fcabd7d9ff18f3ad2b643b27ab0982df1093d71d31e970bc65ad1",
-        "signature": "5de72b3508eccac2be5e1503312df54f962046437491791d3fc116186d7d67ee"
+        "version": "40abc42102ecc8d23998b29d8266fed5cc99f570d764412b24f3fbc9be8c4ce2",
+        "signature": "fd86e1cbe7c5f2a19229909087bccb28874b0bb953a9e771395bc34db7b0b1c8"
       },
       "../node_modules/@babel/types/lib/index.d.ts": {
         "version": "b05f0003bcf151be87491c83a4ba37b561798f1282b92cedb3a4e75a0224eb85",
@@ -2213,6 +2229,33 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../node_modules/@types/react/global.d.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/csstype/index.d.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/@types/prop-types/index.d.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/@types/react/index.d.ts": [
+        "../node_modules/csstype/index.d.ts",
+        "../node_modules/@types/prop-types/index.d.ts",
+        "../node_modules/@types/react/global.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/matchers/props.ts": [
         "../node_modules/jest-matcher-utils/build/index.d.ts",
         "../src/types.ts",
@@ -2234,6 +2277,7 @@
       "../src/matchers/index.ts": [
         "../node_modules/jest/build/jest.d.ts",
         "../node_modules/preact/src/index.d.ts",
+        "../node_modules/@types/react/index.d.ts",
         "../src/types.ts",
         "../src/matchers/props.ts",
         "../src/matchers/components.ts",
@@ -2323,7 +2367,11 @@
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../node_modules/preact/src/index.d.ts": [
-        "../node_modules/preact/src/jsx.d.ts"
+        "../node_modules/preact/src/jsx.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../node_modules/preact/hooks/src/index.d.ts": [
         "../node_modules/preact/src/index.d.ts"
@@ -3064,6 +3112,33 @@
         "../node_modules/@jest/core/build/jest.d.ts",
         "../node_modules/jest-cli/build/index.d.ts"
       ],
+      "../node_modules/@types/react/global.d.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/csstype/index.d.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/@types/prop-types/index.d.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/@types/react/index.d.ts": [
+        "../node_modules/csstype/index.d.ts",
+        "../node_modules/@types/prop-types/index.d.ts",
+        "../node_modules/@types/react/global.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/matchers/props.ts": [
         "../src/types.ts"
       ],
@@ -3073,7 +3148,8 @@
       "../src/matchers/index.ts": [
         "../node_modules/jest/build/jest.d.ts",
         "../node_modules/preact/src/index.d.ts",
-        "../src/types.ts"
+        "../src/types.ts",
+        "../node_modules/@types/react/index.d.ts"
       ],
       "../node_modules/@types/babel__generator/index.d.ts": [
         "../node_modules/@babel/types/lib/index.d.ts"
@@ -3147,7 +3223,6 @@
       "../src/topreactstring.ts",
       "../src/element.ts",
       "../src/util.ts",
-      "../src/preact-utilities.tsx",
       "../src/destroy.ts",
       "../src/mount.ts",
       "../src/index.ts",
@@ -3274,6 +3349,10 @@
       "../node_modules/jest-cli/build/cli/index.d.ts",
       "../node_modules/jest-cli/build/index.d.ts",
       "../node_modules/jest/build/jest.d.ts",
+      "../node_modules/@types/react/global.d.ts",
+      "../node_modules/csstype/index.d.ts",
+      "../node_modules/@types/prop-types/index.d.ts",
+      "../node_modules/@types/react/index.d.ts",
       "../src/matchers/props.ts",
       "../src/matchers/strings.ts",
       "../src/matchers/index.ts",
@@ -3286,6 +3365,7 @@
       "../node_modules/@types/color-name/index.d.ts",
       "../node_modules/@types/eslint-visitor-keys/index.d.ts",
       "../node_modules/@types/json-schema/index.d.ts",
+      "../src/preact-utilities.tsx",
       "../src/root.tsx"
     ]
   },
