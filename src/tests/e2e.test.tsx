@@ -14,7 +14,7 @@ import {ComponentType} from '../types';
 
 describe('@shopify/preact-testing', () => {
   it('does not time out with large trees', () => {
-    function RecurseMyself({children, times}: any) {
+    function RecurseMyself({times}: {times: number}) {
       if (times <= 0) {
         return <div>finished</div>;
       }
