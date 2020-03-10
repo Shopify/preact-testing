@@ -47,6 +47,16 @@ describe('@shopify/preact-testing', () => {
     expect(wrapper.find('span')?.text()).toBe('hi');
   });
 
+  it('can compare text when there are nulls in the vdom', () => {
+    const wrapper = mount(
+      <div>
+        {null}
+        <span>{null}hi</span>
+      </div>,
+    );
+    expect(wrapper.find('span')?.text()).toBe('hi');
+  });
+
   it('can findAll dom components', () => {
     const wrapper = mount(
       <div>

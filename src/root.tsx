@@ -338,8 +338,10 @@ function childrenToTree(inputChildren: ComponentChild, root: Root<any>) {
   
   for (const child of array(inputChildren)) {
     const wrappers = buildElementWrappers(child, root);
-    children.push(wrappers[0]);
-    descendants.push(...wrappers);
+    if (wrappers.length > 0) {
+      children.push(wrappers[0]);
+      descendants.push(...wrappers);
+    }
   }
   
   return {children, descendants};

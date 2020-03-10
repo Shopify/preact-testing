@@ -1,4 +1,4 @@
-import {h, Fragment} from 'preact';
+import {h} from 'preact';
 import {
   Arguments,
   MaybeFunctionReturnType as ReturnType,
@@ -110,6 +110,10 @@ export class Element<Props extends any> implements Node<Props> {
       instance,
       allChildren,
     } = this;
+    if (instance == null) {
+      return '';
+    }
+
     if (instance instanceof HTMLElement) {
       return instance.textContent || '';
     }

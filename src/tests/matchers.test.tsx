@@ -3,6 +3,48 @@ import {mount} from '../mount';
 import '../matchers';
 
 describe('@shopify/preact-testing/matchers', () => {
+  describe('toContainText', () => {
+    it('succeeds when the given text exists in the rendered output of the tree', () => {
+      function Message({children}: {children?: ComponentChild}) {
+        return <span>{children}</span>;
+      }
+
+      const wrapper = mount(
+        <div>
+          <Message>hi</Message>
+        </div>,
+      );
+
+      expect(wrapper).toContainText('hi');
+    });
+
+    it('fails when the given text does not exist in the rendered output of the tree', () => {
+      function Message({children}: {children?: ComponentChild}) {
+        return <span>{children}</span>;
+      }
+
+      const wrapper = mount(
+        <div>
+          <Message>nerd</Message>
+        </div>,
+      );
+
+      expect(wrapper).not.toContainText('hi');
+    });
+
+    it('does not break when some components have null children', () => {
+      function Message({children}: {children?: ComponentChild}) {
+        return <span>{children}</span>;
+      }
+
+      const wrapper = mount(
+          <Message>{undefined}</Message>
+      );
+
+      expect(wrapper).not.toContainText('hi');
+    });
+  });
+
   describe('toContainComponent', () => {
     it('succeeds when the given component exists in the tree', () => {
       function Message({children}: {children?: ComponentChild}) {
