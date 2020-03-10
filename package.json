@@ -1,6 +1,6 @@
 {
   "name": "@shopify/preact-testing",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "license": "MIT",
   "description": "Modern testing support for Preact",
   "main": "dist/src/index.js",
