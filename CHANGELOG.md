@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.2.0]
+
+### Added
+
+- `@shopify/preact-testing/matchers` now aliases it's matchers under the same names as `@shopify/react-testing` for ease of use. This means that apps which use module aliases to substitute `preact` for `react` can switch their tests to use `preact-testing` rather than `react-testing` without having to convert calls to matchers like `toContainReactComponent` to the `toContainComponent` naming used in this library.
+
+
 ## [0.1.6]
 
 ### Fixed
