@@ -275,8 +275,10 @@ function childrenToTree(inputChildren, root) {
         for (var _b = tslib_1.__values(util_1.array(inputChildren)), _c = _b.next(); !_c.done; _c = _b.next()) {
             var child = _c.value;
             var wrappers = buildElementWrappers(child, root);
-            children.push(wrappers[0]);
-            descendants.push.apply(descendants, tslib_1.__spread(wrappers));
+            if (wrappers.length > 0) {
+                children.push(wrappers[0]);
+                descendants.push.apply(descendants, tslib_1.__spread(wrappers));
+            }
         }
     }
     catch (e_1_1) { e_1 = { error: e_1_1 }; }

@@ -95,6 +95,9 @@ var Element = /** @class */ (function () {
     };
     Element.prototype.text = function () {
         var _a = this, instance = _a.instance, allChildren = _a.allChildren;
+        if (instance == null) {
+            return '';
+        }
         if (instance instanceof HTMLElement) {
             return instance.textContent || '';
         }
