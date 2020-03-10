@@ -5,15 +5,26 @@ import {
   Component,
   Fragment,
   Ref,
-  render,
 } from 'preact';
-import {memo, PureComponent, forwardRef} from 'preact/compat';
+import {memo, PureComponent, forwardRef, render} from 'preact/compat';
 import {useState, useEffect, useContext} from 'preact/hooks';
 import {createPortal} from 'preact/compat';
 import {mount, createMount} from '../mount';
 import {ComponentType} from '../types';
 
 describe('@shopify/preact-testing', () => {
+  it('does not time out with large trees', () => {
+    function RecurseMyself({times}: {times: number}) {
+      if (times <= 0) {
+        return <div>finished</div>;
+      }
+      return <RecurseMyself times={times - 1} />;
+    }
+    expect(() => {
+      mount(<RecurseMyself times={900} />);
+    }).not.toThrow();
+  });
+
   it('can output structured debug strings', () => {
     const wrapper = mount(
       <div>
@@ -26,7 +37,7 @@ describe('@shopify/preact-testing', () => {
 </div>`,
     );
   });
-  
+
   it('can find dom components', () => {
     const wrapper = mount(
       <div>
@@ -299,7 +310,6 @@ describe('@shopify/preact-testing', () => {
       expect(myComponent.text()).toBe(myComponent.find(Message)!.text());
     });
 
-
     it('can find text directly inside a fragment', () => {
       function FragMessage({children}: {children?: ComponentChild}) {
         return <Fragment>{children}</Fragment>;
@@ -412,6 +422,42 @@ describe('@shopify/preact-testing', () => {
 
       const wrapper = mountWithContext(<Message />);
       expect(spy.mock.calls).toEqual([['render'], ['render'], ['afterMount']]);
+    });
+
+    it('waits on an async afterMount', async () => {
+      const AppContext = createContext('not the right message');
+      const mountWithContext = createMount<
+        {message: string},
+        {message: string}
+      >({
+        context: ({message}) => ({message}),
+        render: (vdom, context) => {
+          return (
+            <AppContext.Provider value={context.message}>
+              {vdom}
+            </AppContext.Provider>
+          );
+        },
+        afterMount: async (root) => {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              root.context.message = 'a different message';
+              root.forceUpdate();
+              resolve();
+            }, 10);
+          });
+        },
+      });
+
+      function ContextMessage() {
+        const message = useContext(AppContext);
+        return <div>{message}</div>;
+      }
+
+      const wrapperPromise = mountWithContext(<ContextMessage />);
+      const wrapper = await wrapperPromise;
+      expect(wrapper.context.message).toBe('a different message');
+      expect(wrapper.html()).toBe(`<div>${wrapper.context.message}</div>`);
     });
   });
 });
