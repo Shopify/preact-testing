@@ -1,13 +1,13 @@
 import 'jest';
 import {ComponentType, Context as PreactContext} from 'preact';
-import {ComponentType as ReactComponentType, Context as ReactContext} from 'react';
+import {
+  ComponentType as ReactComponentType,
+  Context as ReactContext,
+} from 'react';
 import {Node, PropsFor} from '../types';
 
 import {toHaveProps, toHaveDataProps} from './props';
-import {
-  toContainComponent,
-  toContainComponentTimes,
-} from './components';
+import {toContainComponent, toContainComponentTimes} from './components';
 import {toProvideContext} from './context';
 import {toContainText, toContainHtml} from './strings';
 
@@ -27,7 +27,7 @@ declare global {
         type: Type,
         props?: Partial<PropsFor<Type>>,
       ): void;
-      toContainComponentTimes<Type extends string | ComponentType<any>>(  
+      toContainComponentTimes<Type extends string | ComponentType<any>>(
         type: Type,
         times: number,
         props?: Partial<PropsFor<Type>>,
@@ -37,16 +37,26 @@ declare global {
         times: number,
         props?: Partial<PropsFor<Type>>,
       ): void;
-      toProvideContext<Type>(
-        context: PreactContext<Type>,
-        value?: Type,
-      ): void;
-      toProvideContext<Type>(
-        context: ReactContext<Type>,
-        value?: Type,
-      ): void;
+      toProvideContext<Type>(context: PreactContext<Type>, value?: Type): void;
+      toProvideContext<Type>(context: ReactContext<Type>, value?: Type): void;
       toContainText(text: string): void;
       toContainHtml(text: string): void;
+
+      // compatibility APIs for react-testing
+      toHaveReactProps(props: Partial<PropsFromNode<R>>): void;
+      toHaveReactDataProps(data: {[key: string]: string}): void;
+      toContainReactComponent<Type extends string | ReactComponentType<any>>(
+        type: Type,
+        props?: Partial<PropsFor<Type>>,
+      ): void;
+      toContainReactComponentTimes<Type extends string | ReactComponentType<any>>(
+        type: Type,
+        times: number,
+        props?: Partial<PropsFor<Type>>,
+      ): void;
+      toProvideReactContext<Type>(context: ReactContext<Type>, value?: Type): void;
+      toContainReactText(text: string): void;
+      toContainReactHtml(text: string): void;
     }
   }
 }
@@ -59,4 +69,11 @@ expect.extend({
   toContainText,
   toContainHtml,
   toProvideContext,
+  toHaveReactProps: toHaveProps,
+  toHaveReactDataProps: toHaveDataProps,
+  toContainReactComponent: toContainComponent,
+  toContainReactComponentTimes: toContainComponentTimes,
+  toContainReactText: toContainText,
+  toContainReactHtml: toContainHtml,
+  toProvideReactContext: toProvideContext,
 });
