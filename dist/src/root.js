@@ -267,11 +267,24 @@ function isVNode(maybeNode) {
         maybeNode != null &&
         Reflect.has(maybeNode, 'props'));
 }
-function childrenToTree(children, root) {
-    return util_1.array(children).reduce(function (accumulator, next) {
-        var _a;
-        accumulator.children.push(buildElementWrappers(next, root)[0]);
-        (_a = accumulator.descendants).push.apply(_a, tslib_1.__spread(buildElementWrappers(next, root)));
-        return accumulator;
-    }, { children: [], descendants: [] });
+function childrenToTree(inputChildren, root) {
+    var e_1, _a;
+    var children = [];
+    var descendants = [];
+    try {
+        for (var _b = tslib_1.__values(util_1.array(inputChildren)), _c = _b.next(); !_c.done; _c = _b.next()) {
+            var child = _c.value;
+            var wrappers = buildElementWrappers(child, root);
+            children.push(wrappers[0]);
+            descendants.push.apply(descendants, tslib_1.__spread(wrappers));
+        }
+    }
+    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+    finally {
+        try {
+            if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+        }
+        finally { if (e_1) throw e_1.error; }
+    }
+    return { children: children, descendants: descendants };
 }

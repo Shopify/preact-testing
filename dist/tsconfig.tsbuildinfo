@@ -206,7 +206,7 @@
         "signature": "ae4935c321dd60af8860d982d94229ad7e921ea6cffe4dfebc67bae6d275e989"
       },
       "../src/root.tsx": {
-        "version": "e7e2399d419881a865ef9a8f47cacc1025935ddf71fb424428d1dc1cd88b5aa3",
+        "version": "a30f01131bff05eef422038fcfbcc9c0b1a1caf8ca508eeebfd32fa22fdfd605",
         "signature": "82f59bf6fcad7a0e88f170b5c2a0b888355cec2e503c4bdd28384bb415444f65"
       },
       "../src/destroy.ts": {
@@ -3223,6 +3223,7 @@
       "../src/topreactstring.ts",
       "../src/element.ts",
       "../src/util.ts",
+      "../src/preact-utilities.tsx",
       "../src/destroy.ts",
       "../src/mount.ts",
       "../src/index.ts",
@@ -3365,7 +3366,6 @@
       "../node_modules/@types/color-name/index.d.ts",
       "../node_modules/@types/eslint-visitor-keys/index.d.ts",
       "../node_modules/@types/json-schema/index.d.ts",
-      "../src/preact-utilities.tsx",
       "../src/root.tsx"
     ]
   },
