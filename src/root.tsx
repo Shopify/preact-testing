@@ -332,13 +332,15 @@ function isVNode(maybeNode: ComponentChild): maybeNode is VNode<unknown> {
   );
 }
 
-function childrenToTree(children: ComponentChild, root: Root<any>) {
-  return array(children).reduce(
-    (accumulator: {children: NodeTree, descendants: NodeTree}, next: ComponentChild) => {
-      accumulator.children.push(buildElementWrappers(next, root)[0]);
-      accumulator.descendants.push(...buildElementWrappers(next, root));
-      return accumulator;
-    },
-    {children: [] as NodeTree, descendants: [] as NodeTree},
-  );
+function childrenToTree(inputChildren: ComponentChild, root: Root<any>) {
+  const children: NodeTree = [];
+  const descendants: NodeTree = [];
+  
+  for (const child of array(inputChildren)) {
+    const wrappers = buildElementWrappers(child, root);
+    children.push(wrappers[0]);
+    descendants.push(...wrappers);
+  }
+  
+  return {children, descendants};
 }

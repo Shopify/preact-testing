@@ -33,3 +33,6 @@ npm-debug.log
 # misc. temp files
 tmp
 **/test.log
+
+# jest crash logs
+report.*.json
