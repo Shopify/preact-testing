@@ -27,7 +27,6 @@
   "homepage": "https://github.com/Shopify/preact-testing/blob/master/README.md",
   "dependencies": {
     "@shopify/useful-types": "^2.1.4",
-    "@types/react": "^16.9.23",
     "jest-matcher-utils": "^25.1.0"
   },
   "devDependencies": {
