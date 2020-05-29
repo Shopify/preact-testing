@@ -6,7 +6,7 @@ import {
   Fragment,
   Ref,
 } from 'preact';
-import {memo, PureComponent, forwardRef, render} from 'preact/compat';
+import {memo, PureComponent, forwardRef} from 'preact/compat';
 import {useState, useEffect, useContext} from 'preact/hooks';
 import {createPortal} from 'preact/compat';
 import {mount, createMount} from '../mount';
@@ -136,6 +136,21 @@ describe('@shopify/preact-testing', () => {
     expect(() => wrapper.mount()).toThrow(
       /Attempted to mount a node that was already mounted/,
     );
+  });
+
+  it('runs initial effects', () => {
+    const spy = jest.fn();
+
+    const MyComponent = memo(function MyComponent() {
+      useEffect(() => {
+        spy();
+      });
+
+      return null;
+    });
+
+    mount(<MyComponent />);
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
   describe('rerendering', () => {
@@ -431,7 +446,7 @@ describe('@shopify/preact-testing', () => {
       }
 
       const wrapper = mountWithContext(<Message />);
-      expect(spy.mock.calls).toEqual([['render'], ['render'], ['afterMount']]);
+      expect(spy.mock.calls).toEqual([['render'], ['afterMount']]);
     });
 
     it('waits on an async afterMount', async () => {
