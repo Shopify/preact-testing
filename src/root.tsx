@@ -70,7 +70,6 @@ export class Root<Props extends Record<string, any>> implements Node<Props> {
   }
 
   private wrapper: TestWrapper<Props> | null = null;
-  private wrappedVDom: VNode | null = null;
   private element = document.createElement('div');
   private root: Element<Props> | null = null;
   private resolveRoot: ResolveRoot;
@@ -189,22 +188,19 @@ export class Root<Props extends Record<string, any>> implements Node<Props> {
       connected.add(this);
     }
 
-    this.wrappedVDom = (
-      <TestWrapper<Props>
-        ref={(wrapper) => {
-          this.wrapper = wrapper;
-        }}
-        render={this.render}
-      >
-        {this.vdom as any}
-      </TestWrapper>
-    );
-
-    render(this.wrappedVDom, this.element);
-    this.buildElementsFromVDOM();
-    
-    // force a rerender to allow `useEffect` state updates to be represented
-    this.forceUpdate();
+    this.act(() => {
+      render(
+        <TestWrapper<Props>
+          ref={(wrapper) => {
+            this.wrapper = wrapper;
+          }}
+          render={this.render}
+        >
+          {this.vdom}
+        </TestWrapper>,
+        this.element,
+      );
+    });
   }
 
   rerender() {
