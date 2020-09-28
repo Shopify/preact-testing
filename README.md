@@ -703,7 +703,7 @@ In the interest of supporting preact applications sooner rather than later, we f
 Enzyme is a very popular testing library that heavily inspired the approach this library takes. However, our experience with Enzyme has not been ideal:
 
 - It has frequently taken a long time to support new Preact features.
-- It has a very large API surface area, much of which does not conform to Shopify’s [testing conventions](https://github.com/Shopify/web-foundation/blob/master/Best%20practices/Preact/Testing.md). For example, Enzyme provides APIs like `setState` which encourage reaching in to implementation details of your components.
+- It has a very large API surface area, much of which does not conform to Shopify’s [testing conventions](https://github.com/Shopify/web-foundations/blob/master/handbook/Best%20Practices/Testing.md). For example, Enzyme provides APIs like `setState` which encourage reaching in to implementation details of your components.
 - Enzyme is unlikely to add features we use or need in a testing library, such as automatic unmounting and a built-in version `trigger()`.
 
 ### Why not use [preact-testing-library](https://github.com/testing-library/preact-testing-library) instead?
