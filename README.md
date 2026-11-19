@@ -1,3 +1,6 @@
+> [!WARNING]
+> **This repository is no longer maintained.** It has been archived and receives no updates or security fixes.
+
 # `@shopify/preact-testing`
 
 [![Build Status](https://github.com/Shopify/preact-testing/workflows/CI/badge.svg)](https://github.com/Shopify/preact-testing/actions?query=workflow%3ACI)
